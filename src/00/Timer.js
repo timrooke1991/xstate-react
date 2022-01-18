@@ -52,27 +52,22 @@ export const Timer = () => {
         </div>
       </div>
       <div className="actions">
-        {
-          state === 'running' ? (
-            <button
-              onClick={() => {
-                dispatch({ type: 'TOGGLE' })
-              }}
-              title="Pause timer"
-            >
-              <FontAwesomeIcon icon={faPause} />
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                dispatch({ type: 'TOGGLE' })
-              }}
-              title="Start timer"
-            >
-              <FontAwesomeIcon icon={faPlay} />
-            </button>
-          )
-        }
+        {state === 'running' && (
+          <button
+            onClick={() => dispatch({ type: 'TOGGLE' })}
+            title="Pause timer"
+          >
+            <FontAwesomeIcon icon={faPause} />
+          </button>
+        )}
+        {(state === 'paused' || state === 'idle') && (
+          <button
+            onClick={() => dispatch({ type: 'TOGGLE' })}
+            title="Start timer"
+          >
+            <FontAwesomeIcon icon={faPlay} />
+          </button>
+        )}
       </div>
     </div>
   );
