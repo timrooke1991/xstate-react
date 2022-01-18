@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProgressCircle } from '../ProgressCircle';
 
 // Import the timer machine and its initial state:
-// import { ... } from './timerMachine';
+import { timerMachine, timerMachineConfig } from './timerMachine';
 
 export const Timer = () => {
-  const state = ''; // delete me - useReducer instead!
+  const [state, dispatch] = useReducer(timerMachine, timerMachineConfig.initialState);
 
   const { duration, elapsed, interval } = {
     duration: 60,
@@ -36,7 +36,7 @@ export const Timer = () => {
         <div
           className="elapsed"
           onClick={() => {
-            // ...
+            dispatch({ type: 'TOGGLE' })
           }}
         >
           {Math.ceil(duration - elapsed)}
@@ -44,7 +44,7 @@ export const Timer = () => {
         <div className="controls">
           <button
             onClick={() => {
-              // ...
+              dispatch({ type: 'RESET' })
             }}
           >
             Reset
@@ -52,23 +52,27 @@ export const Timer = () => {
         </div>
       </div>
       <div className="actions">
-        <button
-          onClick={() => {
-            // ...
-          }}
-          title="Pause timer"
-        >
-          <FontAwesomeIcon icon={faPause} />
-        </button>
-
-        <button
-          onClick={() => {
-            // ...
-          }}
-          title="Start timer"
-        >
-          <FontAwesomeIcon icon={faPlay} />
-        </button>
+        {
+          state === 'running' ? (
+            <button
+              onClick={() => {
+                dispatch({ type: 'TOGGLE' })
+              }}
+              title="Pause timer"
+            >
+              <FontAwesomeIcon icon={faPause} />
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                dispatch({ type: 'TOGGLE' })
+              }}
+              title="Start timer"
+            >
+              <FontAwesomeIcon icon={faPlay} />
+            </button>
+          )
+        }
       </div>
     </div>
   );
