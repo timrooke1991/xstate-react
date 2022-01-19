@@ -2,8 +2,6 @@ import { createMachine, assign } from 'xstate';
 
 export const timerMachine = createMachine({
   initial: 'idle',
-  // Add initial context
-  // ...
   context: {
     duration: 60,
     elapsed: 0,
@@ -24,7 +22,7 @@ export const timerMachine = createMachine({
         TOGGLE: 'paused',
         ADD_MINUTE: {
           actions: assign({
-            duration: (context, event) => context.duration + 60
+            duration: (context) => context.duration + 60
           })
         }
       },
