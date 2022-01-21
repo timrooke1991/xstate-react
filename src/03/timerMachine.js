@@ -2,7 +2,7 @@ import { createMachine, assign } from 'xstate';
 
 // Parameterize the assign actions here:
 const tick = assign({
-  duration: (ctx) => ctx.duration - 1,
+  elapsed: (ctx) => ctx.duration + ctx.interval,
 });
 
 const addMinute = assign({
